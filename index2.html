@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlumniHub - Centralized Alumni Management Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        indigo: '#3b82f6',
+                        teal: '#14b8a6',
+                        slate: '#0f172a',
+                        orange: '#f97316',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+                    },
+                },
+            },
+        }
+    </script>
+
+    
+    <style>
+       
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+*{
+    font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+} 
+
+
+    </style>
+</head>
+<body class="bg-gray-200 dark:bg-slate text-gray-900 dark:text-gray-100 font-sans min-h-screen">
+    <!-- Global Navigation -->
+   <nav class="bg-white/30 dark:bg-gray-800/30 backdrop-blur-md shadow-lg fixed w-full z-20 top-0 border-b border-white/20 dark:border-gray-700/40">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+    <i class="fas fa-graduation-cap text-2xl mr-2 text-blue-600 text-3xl"></i>
+    <a href="#home" class="text-xl font-bold text-indigo nav-link mr-16 " data-section="home">Alumni Hub</a>
+
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex space-x-2">
+      <a href="#home" 
+         class="nav-link active px-4 py-2 rounded-lg font-medium text-gray-700 dark:text-gray-200 
+                transform transition-all duration-300 ease-in-out 
+                hover:scale-110 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white hover:shadow-lg" 
+         data-section="home">
+        Home
+      </a>
+      <a href="#directory" 
+         class="nav-link px-4 py-2 rounded-lg font-medium text-gray-700 dark:text-gray-200 
+                transform transition-all duration-300 ease-in-out 
+                hover:scale-110 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white hover:shadow-lg" 
+         data-section="directory">
+        Alumni
+      </a>
+      <a href="#mentorship" 
+         class="nav-link px-4 py-2 rounded-lg font-medium text-gray-700 dark:text-gray-200 
+                transform transition-all duration-300 ease-in-out 
+                hover:scale-110 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white hover:shadow-lg" 
+         data-section="mentorship">
+        Mentorship
+      </a>
+      <a href="#events" 
+         class="nav-link px-4 py-2 rounded-lg font-medium text-gray-700 dark:text-gray-200 
+                transform transition-all duration-300 ease-in-out 
+                hover:scale-110 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white hover:shadow-lg" 
+         data-section="events">
+        Events
+      </a>
+      <a href="#donations" 
+         class="nav-link px-4 py-2 rounded-lg font-medium text-gray-700 dark:text-gray-200 
+                transform transition-all duration-300 ease-in-out 
+                hover:scale-110 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white hover:shadow-lg" 
+         data-section="donations">
+        Donations
+      </a>
+      <a href="#settings" 
+         class="nav-link px-4 py-2 rounded-lg font-medium text-gray-700 dark:text-gray-200 
+                transform transition-all duration-300 ease-in-out 
+                hover:scale-110 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white hover:shadow-lg" 
+         data-section="settings">
+        Settings
+      </a>
+    </div>
+    
+
+    <!-- Mobile Menu Button -->
+    <button id="mobile-menu-btn" class="md:hidden p-2">
+      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M4 6h16M4 12h16m-7 6h7" />
+      </svg>
+    </button>
+
+    <!-- User Actions -->
+    <div class="flex items-center space-x-2">
+      <div class="relative w-32 sm:w-40">
+        <input id="global-search" type="text" placeholder="Search alumni..."
+          class="w-full p-2 border border-gray-400 rounded-md dark:bg-gray-700 dark:border-gray-600 text-sm">
+      </div>
+
+      <button id="notifications-bell" class="relative p-2">
+        <span class="material-symbols-rounded h-5 w-5">
+          notifications
+          </span>
+        <span id="notification-count"
+          class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1 hidden">0</span>
+      </button>
+
+
+      <button id="theme-toggle" class="p-2">
+        <svg id="sun-icon" class="h-5 w-5 hidden dark:block" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <svg id="moon-icon" class="h-5 w-5 block dark:hidden" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+      </button>
+      <img id="user-avatar" src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=" alt="User" class="h-8 w-8 rounded-full">
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-white/30 dark:bg-gray-800/30 backdrop-blur-md shadow-lg border-t border-white/20 dark:border-gray-700/40">
+    <div class="flex flex-col px-4 py-2 space-y-2">
+      <a href="#home" class="nav-link active px-3 py-2 rounded-lg transition duration-300 hover:bg-blue-500 hover:text-white"
+        data-section="home">Home</a>
+      <a href="#directory" class="nav-link px-3 py-2 rounded-lg transition duration-300 hover:bg-blue-500 hover:text-white"
+        data-section="directory">Directory</a>
+      <a href="#mentorship" class="nav-link px-3 py-2 rounded-lg transition duration-300 hover:bg-blue-500 hover:text-white"
+        data-section="mentorship">Mentorship</a>
+      <a href="#events" class="nav-link px-3 py-2 rounded-lg transition duration-300 hover:bg-blue-500 hover:text-white"
+        data-section="events">Events</a>
+      <a href="#donations" class="nav-link px-3 py-2 rounded-lg transition duration-300 hover:bg-blue-500 hover:text-white"
+        data-section="donations">Donations</a>
+      <a href="#admin" class="nav-link px-3 py-2 rounded-lg transition duration-300 hover:bg-blue-500 hover:text-white"
+        data-section="admin">Admin</a>
+      <a href="#settings" class="nav-link px-3 py-2 rounded-lg transition duration-300 hover:bg-blue-500 hover:text-white"
+        data-section="settings">Settings</a>
+    </div>
+  </div>
+</nav>
+
+
+    <!-- Main Content -->
+    <main class="pt-20 pb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Home / Dashboard Hero -->
+        <section id="home" class="mb-12">
+            <div class="flex flex-col md:flex-row items-center  md:gap-20 gap-8 ">
+                <div class="md:w-1/2 mb-8 md:mb-0 ">
+                    <h1 class="text-3xl sm:text-4xl font-bold mb-4">Alumni Hub : Connect, Engage, Empower yourself</h1>
+                    <p class="text-base sm:text-lg mb-6">Alumni Hub is a centralized platform for managing and engaging alumni networks. Connect with peers, find mentors, organize events, and support your alma mater.</p>
+                    <a href="#directory" 
+                    class="mt-4 px-5 sm:px-7 py-2.5 sm:py-3.5 
+                           rounded-full text-sm sm:text-base font-medium 
+                           bg-blue-500 from-indigo-500 to-purple-600 
+                           text-black shadow-md shadow-indigo-500/30
+                           hover:from-indigo-600 hover:to-purple-700 hover: scale-110 shadow-lg hover:shadow-purple-500/40
+                           transition-all duration-300 ease-in-out transform hover:scale-105 
+                           focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400
+                           nav-link dark:text-white "
+                    data-section="directory">
+                    Explore Directory
+                 </a>
+                </div>
+                <div class="md:w-1/2">
+                    <img  class="w-[450px] h-[400px]  rounded-2xl mt-8" src="./alumni .jpg" 
+     alt="Alumni Illustration"
+     class="w-full h-[300px] sm:h-64 object-cover rounded-lg shadow-md">
+
+                </div>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-bold mt-8 sm:mt-12 mb-6">Key Features</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                <div class="bg-green-50 dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+                    <!-- <svg class="h-10 w-10 sm:h-12 sm:w-12 mb-4 text-indigo" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0-12l-2.5 2.5m2.5 2.5l2.5 2.5m6-6l2.5-2.5M14.5 4.5l-2.5 2.5m-6 6l-2.5 2.5m2.5 2.5l2.5-2.5" />
+                    </svg> -->
+                    <i class="fas fa-users text-4xl text-green-600 mb-4"></i>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-2">Networking</h3>
+                    <p class="text-sm sm:text-base">Connect with alumni through a searchable directory.</p>
+                </div>
+                <div class="bg-blue-50 dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+                    <svg class="h-10 w-10 sm:h-12 sm:w-12 mb-4 text-indigo" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                    </svg>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-2">Mentorship</h3>
+                    <p class="text-sm sm:text-base">Find mentors or mentees with personalized matching.</p>
+                </div>
+                <div class="bg-purple-50 dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1 ">
+                    <!-- <svg class="h-10 w-10 sm:h-12 sm:w-12 mb-4 text-indigo" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg> -->
+                    <i class="fas fa-calendar-alt text-4xl text-purple-600 mb-4"></i>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-2">Events</h3>
+                    <p class="text-sm sm:text-base">Organize and RSVP to alumni events seamlessly.</p>
+                </div>
+            </div>
+            <!-- Dashboard Summary -->
+            <h2 class="text-xl sm:text-2xl font-bold mt-8 sm:mt-12 mb-6">At a Glance</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                <div class="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+                    <h3 class="text-base sm:text-lg font-semibold mb-2">Total Alumni</h3>
+                    <p id="total-alumni" class="text-xl sm:text-2xl font-bold text-indigo">0</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+                    <h3 class="text-base sm:text-lg font-semibold mb-2">Active Mentors</h3>
+                    <p id="active-mentors" class="text-xl sm:text-2xl font-bold text-teal">0</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+                    <h3 class="text-base sm:text-lg font-semibold mb-2">Upcoming Events</h3>
+                    <p id="upcoming-events" class="text-xl sm:text-2xl font-bold text-orange">0</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+                    <h3 class="text-base sm:text-lg font-semibold mb-2">Donations Total</h3>
+                    <p id="donations-total" class="text-xl sm:text-2xl font-bold text-indigo">$0</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alumni Directory -->
+        <section id="directory" class="py-12 bg-gray-50 dark:bg-gray-900 rounded-xl p-6">
+  <h2 class="text-2xl sm:text-3xl font-bold mb-8 text-gray-900 dark:text-gray-100">Alumni Directory</h2>
+
+  <!-- Filters -->
+  <div class="mb-8 flex flex-wrap gap-3">
+    <input id="directory-search" type="text" placeholder="Search by name..." 
+           class="flex-1 p-3 border rounded-xl dark:bg-gray-800 dark:border-gray-600 focus:ring-2 focus:ring-orange-400 outline-none">
+           
+    <select id="batch-filter" class="flex-1 p-3 border rounded-xl dark:bg-gray-800 dark:border-gray-600 focus:ring-2 focus:ring-orange-400 outline-none">
+      <option value="">Batch Range</option>
+      <option value="2000-2009">2000-2009</option>
+      <option value="2010-2019">2010-2019</option>
+      <option value="2020-2029">2020-2029</option>
+    </select>
+    
+    <select id="industry-filter" class="flex-1 p-3 border rounded-xl dark:bg-gray-800 dark:border-gray-600 focus:ring-2 focus:ring-orange-400 outline-none">
+      <option value="">Industry</option>
+    </select>
+
+    <select id="location-filter" class="flex-1 p-3 border rounded-xl dark:bg-gray-800 dark:border-gray-600 focus:ring-2 focus:ring-orange-400 outline-none">
+      <option value="">Location</option>
+    </select>
+
+    <input id="tags-filter" type="text" placeholder="Tags (comma separated)" 
+           class="flex-1 p-3 border rounded-xl dark:bg-gray-800 dark:border-gray-600 focus:ring-2 focus:ring-orange-400 outline-none">
+
+    <select id="verified-filter" class="flex-1 p-3 border rounded-xl dark:bg-gray-800 dark:border-gray-600 focus:ring-2 focus:ring-orange-400 outline-none">
+      <option value="">Verified</option>
+      <option value="true">Yes</option>
+      <option value="false">No</option>
+    </select>
+
+    <select id="sort-select" class="flex-1 p-3 border rounded-xl dark:bg-gray-800 dark:border-gray-600 focus:ring-2 focus:ring-orange-400 outline-none">
+      <option value="newest">Newest</option>
+      <option value="active">Most Active</option>
+      <option value="connected">Most Connected</option>
+    </select>
+  </div>
+
+  <!-- Alumni Grid -->
+  <div id="alumni-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Example static card -->
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-5 flex flex-col space-y-2 hover:shadow-xl transition">
+      <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">John Doe</h3>
+      <p class="text-sm text-gray-600 dark:text-gray-300">Software Engineer, 2015-2019</p>
+      <p class="text-xs text-gray-500 dark:text-gray-400">Tech • New York • #Alumni</p>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-5 flex flex-col space-y-2 hover:shadow-xl transition">
+      <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Jane Smith</h3>
+      <p class="text-sm text-gray-600 dark:text-gray-300">Product Manager, 2010-2014</p>
+      <p class="text-xs text-gray-500 dark:text-gray-400">Finance • London • #Alumni</p>
+    </div>
+
+    <!-- Add more static cards as placeholders -->
+  </div>
+
+  <!-- Pagination -->
+  <div id="pagination" class="mt-8 flex justify-center space-x-2">
+    <button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition">1</button>
+    <button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition">2</button>
+    <button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition">3</button>
+    <span class="px-4 py-2 text-gray-500 dark:text-gray-400">...</span>
+    <button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition">10</button>
+  </div>
+</section>
+
+
+        <!-- Mentorship Hub -->
+        <section id="mentorship" class="py-12 bg-gray-50 dark:bg-gray-900 hidden">
+            <h2 class="text-xl sm:text-2xl font-bold mb-6 ml-4">Mentorship Hub</h2>
+            <div class="mb-6 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                <select id="mentorship-type" class="p-2 border rounded-md dark:bg-gray-800 dark:border-gray-600">
+                    <option value="mentors">Mentors</option>
+                    <option value="mentees">Mentees</option>
+                </select>
+                <input id="mentorship-search" type="text" placeholder="Search..." class="p-2 border rounded-md flex-1 dark:bg-gray-800 dark:border-gray-600">
+            </div>
+            <div id="mentorship-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"></div>
+        </section>
+
+        <!-- Events Manager -->
+        <section id="events" class="py-12 hidden">
+            <h2 class="text-xl sm:text-2xl font-bold mb-6">Events</h2>
+
+            <div id="events-list" class="space-y-4 sm:space-y-6"></div>
+        </section>
+
+        <!-- Donations -->
+        <section id="donations" class="py-16 bg-gray-50 dark:bg-gray-900 hidden relative overflow-hidden round">
+          <!-- Background gradient aura -->
+          <div class="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-pink-500/10 to-purple-500/10 dark:from-orange-400/5 dark:via-pink-400/5 dark:to-purple-400/5 blur-3xl"></div>
+          
+          <h2 class="relative text-2xl sm:text-3xl font-extrabold mb-10 text-center text-gray-800 dark:text-gray-100 drop-shadow-sm">
+            Donations & Fundraising
+          </h2>
+          
+          <div class="max-w-md mx-auto relative">
+            <div class="backdrop-blur-2xl bg-white/20 dark:bg-gray-800/20 border border-white/30 dark:border-gray-700/40 p-8 sm:p-10 rounded-3xl shadow-2xl transition-all duration-500 hover:shadow-[0_8px_30px_rgb(0,0,0,0.3)] hover:scale-[1.03]">
+              
+              <p class="mb-6 text-base sm:text-lg text-gray-700 dark:text-gray-300 font-medium">
+                Be the reason our alumni network grows stronger ✨
+              </p>
+              
+              <!-- Fancy Donate Button -->
+             <!-- Fancy Donate Button -->
+<div class="relative group inline-block">
+  <!-- Glow aura -->
+  <div class="absolute -inset-1 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 rounded-lg blur-lg opacity-60 group-hover:opacity-90 transition duration-300 animate-pulse"></div>
+  
+  <!-- Actual button -->
+  <button id="donate-btn" 
+    class="relative bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 hover:from-purple-700 hover:via-pink-700 hover:to-red-700 
+    text-white px-8 py-3 rounded-lg text-base font-bold shadow-md hover:shadow-lg transition-all duration-300 tracking-wide drop-shadow-md">
+    Donate Now
+  </button>
+</div>
+
+        </section>
+
+        <!-- Admin Stub -->
+        <section id="admin" class="py-12 hidden">
+            <h2 class="text-xl sm:text-2xl font-bold mb-6">Admin Dashboard</h2>
+            <div id="pending-verifications" class="space-y-4"></div>
+        </section>
+
+        <!-- Settings -->
+        <section id="settings" class="py-16 bg-gray-50 dark:bg-gray-900 hidden relative overflow-hidden">
+          <!-- Background aura -->
+          <div class="absolute inset-0 bg-gradient-to-br from-teal-500/10 via-purple-500/10 to-pink-500/10 
+                      dark:from-teal-400/5 dark:via-purple-400/5 dark:to-pink-400/5 blur-3xl"></div>
+        
+          <h2 class="relative text-3xl font-extrabold mb-12 text-center 
+                     text-gray-900 dark:text-gray-100 drop-shadow-sm">
+                     <span class="material-symbols-rounded">
+                      settings
+                      </span> Settings
+          </h2>
+        
+          <div class="max-w-4xl mx-auto relative grid gap-8 sm:grid-cols-2">
+            
+            <!-- Profile Settings -->
+            <div class="group backdrop-blur-xl bg-white/40 dark:bg-gray-800/30 
+                        border border-white/60 dark:border-gray-700/50 
+                        p-6 rounded-2xl shadow-lg 
+                        hover:scale-[1.03] hover:border-indigo-400/60 hover:shadow-indigo-500/20 
+                        transition-all duration-300">
+              <h3 class="flex items-center text-lg font-semibold 
+                         text-gray-900 dark:text-gray-100 mb-4">
+                👤 Profile
+              </h3>
+              <button class="w-full bg-gradient-to-r from-blue-500 to-indigo-500 
+                             text-white px-4 py-2 rounded-md mb-2 font-medium 
+                             shadow-md hover:scale-105 transition">
+                Edit Profile
+              </button>
+              <button class="w-full bg-gradient-to-r from-blue-500 to-indigo-500 
+                             text-white px-4 py-2 rounded-md font-medium 
+                             shadow-md hover:scale-105 transition">
+                Change Picture
+              </button>
+            </div>
+        
+            <!-- Account Settings -->
+            <div class="group backdrop-blur-xl bg-white/40 dark:bg-gray-800/30 
+                        border border-white/60 dark:border-gray-700/50 
+                        p-6 rounded-2xl shadow-lg 
+                        hover:scale-[1.03] hover:border-teal-400/60 hover:shadow-teal-500/20 
+                        transition-all duration-300">
+              <h3 class="flex items-center text-lg font-semibold 
+                         text-gray-900 dark:text-gray-100 mb-4">
+                🔑 Account
+              </h3>
+              <button class="w-full bg-gradient-to-r from-green-500 to-teal-500 
+                             text-white px-4 py-2 rounded-md mb-2 font-medium 
+                             shadow-md hover:scale-105 transition">
+                Change Password
+              </button>
+              <button class="w-full bg-gradient-to-r from-green-500 to-teal-500 
+                             text-white px-4 py-2 rounded-md font-medium 
+                             shadow-md hover:scale-105 transition">
+                Two-Factor Auth
+              </button>
+            </div>
+        
+            <!-- Notifications -->
+            <div class="group backdrop-blur-xl bg-white/40 dark:bg-gray-800/30 
+                        border border-white/60 dark:border-gray-700/50 
+                        p-6 rounded-2xl shadow-lg 
+                        hover:scale-[1.03] hover:border-pink-400/60 hover:shadow-pink-500/20 
+                        transition-all duration-300">
+              <h3 class="flex items-center text-lg font-semibold 
+                         text-gray-900 dark:text-gray-100 mb-4">
+                🔔 Notifications
+              </h3>
+              <label class="flex items-center justify-between mb-4">
+                <span class="text-gray-800 dark:text-gray-200">Email Alerts</span>
+                <input type="checkbox" class="peer hidden">
+                <span class="w-12 h-6 flex items-center bg-gray-300 dark:bg-gray-600 
+                             rounded-full p-1 duration-300 peer-checked:bg-indigo-500">
+                  <span class="bg-white w-4 h-4 rounded-full shadow-md transform 
+                               duration-300 peer-checked:translate-x-6"></span>
+                </span>
+              </label>
+              <label class="flex items-center justify-between">
+                <span class="text-gray-800 dark:text-gray-200">Event Reminders</span>
+                <input type="checkbox" class="peer hidden">
+                <span class="w-12 h-6 flex items-center bg-gray-300 dark:bg-gray-600 
+                             rounded-full p-1 duration-300 peer-checked:bg-indigo-500">
+                  <span class="bg-white w-4 h-4 rounded-full shadow-md transform 
+                               duration-300 peer-checked:translate-x-6"></span>
+                </span>
+              </label>
+            </div>
+        
+            <!-- Data & Security -->
+            <div class="group backdrop-blur-xl bg-white/40 dark:bg-gray-800/30 
+                        border border-white/60 dark:border-gray-700/50 
+                        p-6 rounded-2xl shadow-lg 
+                        hover:scale-[1.03] hover:border-cyan-400/60 hover:shadow-cyan-500/20 
+                        transition-all duration-300">
+              <h3 class="flex items-center text-lg font-semibold 
+                         text-gray-900 dark:text-gray-100 mb-4">
+                         <span class="material-symbols-rounded">
+                          lock
+                          </span> Data & Security
+              </h3>
+              <button id="export-data" class="w-full bg-gradient-to-r from-teal-500 to-cyan-500 
+                                             text-white px-4 py-2 rounded-md mb-2 font-medium 
+                                             shadow-md hover:scale-105 transition">
+                Export Data
+              </button>
+              <input type="file" id="import-data" class="hidden">
+              <button id="import-btn" class="w-full bg-gradient-to-r from-teal-500 to-cyan-500 
+                                             text-white px-4 py-2 rounded-md font-medium 
+                                             shadow-md hover:scale-105 transition">
+                Import Data
+              </button>
+            </div>
+          </div>
+        
+          <!-- Logout -->
+          <div class="max-w-3xl mx-auto mt-10 relative">
+            <div class="backdrop-blur-xl bg-white/40 dark:bg-gray-800/30 
+                        border border-white/60 dark:border-gray-700/50 
+                        p-6 rounded-2xl shadow-lg text-center 
+                        hover:scale-[1.02] hover:border-red-400/60 hover:shadow-red-500/20 
+                        transition-all duration-300">
+              <button id="logoutBtn" class="bg-gradient-to-r from-red-500 to-pink-600 
+                                           text-white px-8 py-3 rounded-lg text-lg 
+                                           font-semibold shadow-lg hover:scale-105 transition">
+                                           <span class="material-symbols-rounded">
+                                            logout
+                                            </span> Log Out
+              </button>
+            </div>
+          </div>
+        </section>
+        
+
+        
+    </main>
+`
+    <!-- Modals -->
+    <div id="profile-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-30" role="dialog" aria-modal="true">
+        <div class="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-lg w-full max-w-md sm:max-w-lg max-h-[80vh] overflow-y-auto">
+            <div class="flex justify-between mb-4">
+                <h3 class="text-lg sm:text-xl font-bold">Alumni Profile</h3>
+                <button id="close-profile" class="text-gray-500 text-xl sm:text-2xl">&times;</button>
+            </div>
+            <div id="profile-content"></div>
+            <button id="edit-profile-btn" class="bg-indigo text-white px-4 py-2 rounded-md mt-4 w-full text-sm sm:text-base">Edit Profile</button>
+        </div>
+    </div>
+
+    <div id="edit-profile-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-30" role="dialog" aria-modal="true">
+        <div class="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-lg w-full max-w-md sm:max-w-lg">
+            <div class="flex justify-between mb-4">
+                <h3 class="text-lg sm:text-xl font-bold">Edit Profile</h3>
+                <button id="close-edit-profile" class="text-gray-500 text-xl sm:text-2xl">&times;</button>
+            </div>
+            <form id="edit-profile-form">
+                <input type="hidden" id="edit-id">
+                <label class="block mb-2 text-sm sm:text-base">Name</label>
+                <input id="edit-name" type="text" class="w-full p-2 border rounded-md mb-4 dark:bg-gray-700 text-sm sm:text-base">
+                <label class="block mb-2 text-sm sm:text-base">Batch</label>
+                <input id="edit-batch" type="text" class="w-full p-2 border rounded-md mb-4 dark:bg-gray-700 text-sm sm:text-base">
+                <label class="block mb-2 text-sm sm:text-base">Degree</label>
+                <input id="edit-degree" type="text" class="w-full p-2 border rounded-md mb-4 dark:bg-gray-700 text-sm sm:text-base">
+                <label class="block mb-2 text-sm sm:text-base">Role</label>
+                <input id="edit-role" type="text" class="w-full p-2 border rounded-md mb-4 dark:bg-gray-700 text-sm sm:text-base">
+                <label class="block mb-2 text-sm sm:text-base">Company</label>
+                <input id="edit-company" type="text" class="w-full p-2 border rounded-md mb-4 dark:bg-gray-700 text-sm sm:text-base">
+                <label class="block mb-2 text-sm sm:text-base">Location</label>
+                <input id="edit-location" type="text" class="w-full p-2 border rounded-md mb-4 dark:bg-gray-700 text-sm sm:text-base">
+                <label class="block mb-2 text-sm sm:text-base">Tags (comma separated)</label>
+                <input id="edit-tags" type="text" class="w-full p-2 border rounded-md mb-4 dark:bg-gray-700 text-sm sm:text-base">
+                <label class="block mb-2 text-sm sm:text-base">Bio</label>
+                <textarea id="edit-bio" class="w-full p-2 border rounded-md mb-4 dark:bg-gray-700 text-sm sm:text-base"></textarea>
+                <label class="block mb-2 text-sm sm:text-base">LinkedIn</label>
+                <input id="edit-linkedin" type="text" class="w-full p-2 border rounded-md mb-4 dark:bg-gray-700 text-sm sm:text-base">
+                <label class="block mb-2 text-sm sm:text-base">Email</label>
+                <input id="edit-email" type="email" class="w-full p-2 border rounded-md mb-4 dark:bg-gray-700 text-sm sm:text-base">
+                <button type="submit" class="bg-indigo text-white px-4 py-2 rounded-md w-full text-sm sm:text-base">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="mentorship-request-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-30" role="dialog" aria-modal="true">
+        <div class="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-lg w-full max-w-md">
+            <div class="flex justify-between mb-4">
+                <h3 class="text-lg sm:text-xl font-bold">Request Mentorship</h3>
+                <button id="close-mentorship-request" class="text-gray-500 text-xl sm:text-2xl">&times;</button>
+            </div>
+            <form id="mentorship-request-form">
+                <input type="hidden" id="request-id">
+                <label class="block mb-2 text-sm sm:text-base">Message</label>
+                <textarea id="request-message" class="w-full p-2 border rounded-md mb-4 dark:bg-gray-700 text-sm sm:text-base" placeholder="Why do you want mentorship?"></textarea>
+                <button type="submit" class="bg-teal text-white px-4 py-2 rounded-md w-full text-sm sm:text-base">Send Request</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="create-event-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-30" role="dialog" aria-modal="true">
+        <div class="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-lg w-full max-w-md">
+            <div class="flex justify-between mb-4">
+                <h3 class="text-lg sm:text-xl font-bold">Create Event</h3>
+                <button id="close-create-event" class="text-gray-500 text-xl sm:text-2xl">&times;</button>
+            </div>
+            <form id="create-event-form">
+                <label class="block mb-2 text-sm sm:text-base">Title</label>
+                <input id="event-title" type="text" class="w-full p-2 border rounded-md mb-4 dark:bg-gray-700 text-sm sm:text-base">
+                <label class="block mb-2 text-sm sm:text-base">Date</label>
+                <input id="event-date" type="date" class="w-full p-2 border rounded-md mb-4 dark:bg-gray-700 text-sm sm:text-base">
+                <label class="block mb-2 text-sm sm:text-base">Venue</label>
+                <input id="event-venue" type="text" class="w-full p-2 border rounded-md mb-4 dark:bg-gray-700 text-sm sm:text-base">
+                <label class="block mb-2 text-sm sm:text-base">Description</label>
+                <textarea id="event-description" class="w-full p-2 border rounded-md mb-4 dark:bg-gray-700 text-sm sm:text-base"></textarea>
+                <button type="submit" class="bg-indigo text-white px-4 py-2 rounded-md w-full text-sm sm:text-base">Create</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="rsvp-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-30" role="dialog" aria-modal="true">
+        <div class="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-lg w-full max-w-md">
+            <div class="flex justify-between mb-4">
+                <h3 class="text-lg sm:text-xl font-bold">RSVP to Event</h3>
+                <button id="close-rsvp" class="text-gray-500 text-xl sm:text-2xl">&times;</button>
+            </div>
+            <p id="rsvp-event-title" class="mb-4 text-sm sm:text-base"></p>
+            <button id="confirm-rsvp" class="bg-teal text-white px-4 py-2 rounded-md w-full text-sm sm:text-base">Confirm</button>
+        </div>
+    </div>
+
+    <div id="donation-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-30" role="dialog" aria-modal="true">
+  <div class="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-xl shadow-lg w-full max-w-md">
+    
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-lg sm:text-xl font-bold">Make a Donation</h3>
+      <button id="close-donation" class="text-gray-500 text-xl sm:text-2xl">&times;</button>
+    </div>
+
+    <!-- Name -->
+    <label class="block mb-2 text-sm sm:text-base">Your Name</label>
+    <input id="donation-name" type="text" placeholder="Enter your name" 
+           class="w-full p-2 border rounded-md mb-4 dark:bg-gray-700 text-sm sm:text-base">
+
+    <!-- Amount -->
+    <label class="block mb-2 text-sm sm:text-base">Amount ($)</label>
+    <input id="donation-amount" type="number" min="1" placeholder="Enter amount" 
+           class="w-full p-2 border rounded-md mb-4 dark:bg-gray-700 text-sm sm:text-base">
+
+    <!-- Donate Button -->
+    <button id="confirm-donation" 
+            class="bg-orange text-white px-4 py-2 rounded-md w-full text-sm sm:text-base">
+      Donate
+    </button>
+  </div>
+</div>
+
+
+    <div id="toast" class="fixed bottom-4 right-4 px-4 py-2 rounded-md shadow-md hidden z-40"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

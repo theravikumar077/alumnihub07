@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alumni Login/Signup</title>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <style>
+    .glass-card { backdrop-filter: blur(15px); background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); }
+    .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; animation: blobMove 20s infinite; }
+    .blob1 { width: 300px; height: 300px; background: #4ade80; top: -50px; left: -50px; animation-delay: 0s; }
+    .blob2 { width: 400px; height: 400px; background: #3b82f6; bottom: -100px; right: -100px; animation-delay: 5s; }
+    .blob3 { width: 200px; height: 200px; background: #06b6d4; top: 50%; left: 70%; animation-delay: 10s; }
+    @keyframes blobMove { 0%,100%{transform:translate(0,0) scale(1);} 33%{transform:translate(50px,-30px) scale(1.1);} 66%{transform:translate(-30px,50px) scale(0.9);} }
+    .fade-in { animation: fadeIn 0.5s ease forwards; } .fade-out { animation: fadeOut 0.5s ease forwards; }
+    @keyframes fadeIn { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+    @keyframes fadeOut { from {opacity:1; transform:translateY(0);} to {opacity:0; transform:translateY(-20px);} }
+  </style>
+</head>
+<body class="relative min-h-screen flex items-center justify-center bg-white backdrop-blur-xl overflow-hidden">
+
+
+  <!-- Floating Blobs -->
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+
+  <!-- Main Card Container -->
+ <div class="border-black relative z-10 w-full max-w-md p-8 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 text-white">
+
+  <!-- Welcome Card -->
+  <div id="welcomeCard" class="space-y-4 fade-in text-center">
+    <h1 class="text-3xl font-bold tracking-wide text-black">✨ Welcome Back</h1>
+    <p class=" text-sm text-black">Login or create an account to continue</p>
+    <div class="flex justify-center gap-4 pt-2">
+      <button id="gotoLogin" class="px-6 py-2 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 text-black font-semibold shadow hover:opacity-90 transition">Login</button>
+      <button id="gotoSignup" class="px-6 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-400 text-black font-semibold shadow hover:opacity-90 transition">Sign Up</button>
+    </div>
+  </div>
+
+  <!-- Login Form -->
+  <form id="loginForm" class="hidden space-y-5 fade-in">
+    <h2 class="text-2xl font-bold text-center text-black ">Login</h2>
+    <div class="relative">
+      <span class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-black">person</span>
+      <input type="text" id="loginUsername" placeholder="Username" class="border-black w-full px-10 py-3 rounded-xl bg-white/15 text-black placeholder-black focus:outline-none focus:ring-2 focus:ring-black">
+    </div>
+    <div class="relative">
+      <span class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-900">lock</span>
+      <input type="password" id="loginPassword" placeholder="Password" class="w-full px-10 py-3 rounded-xl bg-white/15 text-black placeholder-gray-900 focus:outline-none focus:ring-2 focus:ring-black">
+      <span id="toggleLoginPass" class="material-symbols-rounded absolute right-3 top-1/2 -translate-y-1/2 text-gray-900 cursor-pointer">visibility</span>
+    </div>
+    <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 text-black font-semibold shadow hover:opacity-90 transition">Login</button>
+    <div class="flex justify-between text-sm text-gray-300">
+      <span id="forgotPasswordLink" class="cursor-pointer text-cyan-900 hover:underline">Forgot Password ?</span>
+      <span classNme="text-black" > <span id="backToSignup" class="cursor-pointer text-black hover:underline">Sign Up</span></span>
+    </div>
+  </form>
+
+  <!-- Signup Form -->
+  <form id="signupForm" class="hidden space-y-5 fade-in">
+    <h2 class="text-2xl font-bold text-center text-black">Create Account</h2>
+    <div class="relative">
+      <span class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-900">person</span>
+      <input type="text" id="signupFullname" placeholder="Full Name" class="w-full px-10 py-3 rounded-xl bg-white/15  text-black placeholder-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-400">
+    </div>
+    <div class="relative">
+      <span class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-900">attach_email</span>
+      <input type="email" id="signupEmail" placeholder="Email" class="w-full px-10 py-3 rounded-xl bg-white/15  text-black placeholder-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-400">
+    </div>
+    <div class="relative">
+      <span class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-900">account_circle</span>
+      <input type="text" id="signupUsername" placeholder="Username" class="w-full px-10 py-3 rounded-xl bg-white/15  text-black placeholder-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-400">
+    </div>
+    <div class="relative">
+      <span class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-900">lock</span>
+      <input type="password" id="signupPassword" placeholder="Password" class="w-full px-10 py-3 rounded-xl bg-white/15  text-black placeholder-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-409">
+      <i id="toggleSignupPass" class="fa fa-eye absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer"></i>
+    </div>
+    <div class="relative">
+      <span class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-900">lock</span>
+      <input type="password" id="signupConfirmPassword" placeholder="Confirm Password" class="w-full px-10 py-3 rounded-xl bg-white/15  text-black placeholder-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-409">
+    </div>
+    <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 text-black font-semibold shadow hover:opacity-90 transition">Sign Up</button>
+    <div class="text-center text-sm text-gray-900">
+      Already have an account ? <span id="backToLogin" class="cursor-pointer text-cyan-500 hover:underline">Login</span>
+    </div>
+  </form>
+
+  <!-- Forgot Password Modal -->
+  <div id="forgotPasswordModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-20">
+    <div class="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl p-6 rounded-2xl w-80 space-y-4 relative border border-white/20 shadow-xl">
+      <h2 class="text-xl font-bold text-center">Reset Password</h2>
+      <input type="email" id="forgotEmail" placeholder="Email" class="w-full px-4 py-3 rounded-xl bg-white/15 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-cyan-400">
+      <button id="resetPasswordBtn" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 text-black font-semibold shadow hover:opacity-90 transition">Reset</button>
+      <span id="closeForgot" class="absolute top-3 right-4 cursor-pointer text-gray-200 text-lg">&times;</span>
+    </div>
+  </div>
+</div>
+
+  
+
+  <!-- JavaScript -->
+  
+  <script>
+    // --------------------- ELEMENT REFERENCES ---------------------
+    const welcomeCard = document.getElementById('welcomeCard');
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+    const forgotModal = document.getElementById('forgotPasswordModal');
+  
+    const gotoLogin = document.getElementById('gotoLogin');
+    const gotoSignup = document.getElementById('gotoSignup');
+    const backToLogin = document.getElementById('backToLogin');
+    const backToSignup = document.getElementById('backToSignup');
+    const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+    const closeForgot = document.getElementById('closeForgot');
+  
+    const toggleLoginPass = document.getElementById('toggleLoginPass');
+    const loginPassword = document.getElementById('loginPassword');
+    const toggleSignupPass = document.getElementById('toggleSignupPass');
+    const signupPassword = document.getElementById('signupPassword');
+  
+    // --------------------- LOCAL STORAGE USERS ---------------------
+    const LS_USERS = 'lms_users_v1';
+    function loadUsers() { return JSON.parse(localStorage.getItem(LS_USERS) || '[]'); }
+    function saveUser(user) {
+      const users = loadUsers();
+      users.push(user);
+      localStorage.setItem(LS_USERS, JSON.stringify(users));
+    }
+  
+    // --------------------- FORM VALIDATION ---------------------
+    function isEmailValid(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
+    function isPasswordStrong(password) { return password.length >= 6; }
+  
+    // --------------------- SHOW/HIDE FUNCTIONS ---------------------
+    function showWelcome() {
+      welcomeCard.classList.remove('hidden');
+      loginForm.classList.add('hidden');
+      signupForm.classList.add('hidden');
+    }
+    function showLogin() {
+      welcomeCard.classList.add('hidden');
+      loginForm.classList.remove('hidden');
+      signupForm.classList.add('hidden');
+    }
+    function showSignup() {
+      welcomeCard.classList.add('hidden');
+      loginForm.classList.add('hidden');
+      signupForm.classList.remove('hidden');
+    }
+  
+    gotoLogin.addEventListener('click', showLogin);
+    gotoSignup.addEventListener('click', showSignup);
+    backToLogin.addEventListener('click', showLogin);
+    backToSignup.addEventListener('click', showSignup);
+  
+    // --------------------- LOGIN FORM ---------------------
+    loginForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const username = document.getElementById('loginUsername').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+      if(!username || !password){ alert("All fields are required!"); return; }
+  
+      const users = loadUsers();
+  
+      if(username==="admin" && password==="123456"){
+        localStorage.setItem("loggedInUser", username);
+        localStorage.setItem("isAdmin","true");
+        window.location.href="index1.html";
+        return;
+      }
+  
+      const matched = users.find(u=>u.username===username && u.password===password);
+      if(matched){
+        localStorage.setItem("loggedInUser", username);
+        localStorage.setItem("isAdmin","false");
+        window.location.href="index2.html";
+      } else {
+        alert("Wrong username or password!");
+        loginForm.reset();
+      }
+    });
+  
+    // --------------------- SIGNUP FORM ---------------------
+    signupForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const fullname = document.getElementById('signupFullname').value.trim();
+      const email = document.getElementById('signupEmail').value.trim();
+      const username = document.getElementById('signupUsername').value.trim();
+      const password = document.getElementById('signupPassword').value.trim();
+      const confirmPass = document.getElementById('signupConfirmPassword').value.trim();
+  
+      if(!fullname || !email || !username || !password || !confirmPass){ alert("All fields required!"); return; }
+      if(!isEmailValid(email)){ alert("Invalid email!"); return; }
+      if(!isPasswordStrong(password)){ alert("Password too weak!"); return; }
+      if(password !== confirmPass){ alert("Passwords do not match!"); return; }
+  
+      const users = loadUsers();
+      if(users.some(u=>u.username===username)){ alert("Username already taken!"); return; }
+  
+      saveUser({fullname,email,username,password});
+      alert("Signup Successful!");
+      signupForm.reset();
+      showLogin();
+    });
+  
+    // --------------------- FORGOT PASSWORD ---------------------
+    forgotPasswordLink.addEventListener('click', ()=>forgotModal.classList.remove('hidden'));
+    closeForgot.addEventListener('click', ()=>forgotModal.classList.add('hidden'));
+    document.getElementById('resetPasswordBtn').addEventListener('click', ()=>{
+      const email = document.getElementById('forgotEmail').value.trim();
+      if(!email){ alert("Email required!"); return; }
+      if(!isEmailValid(email)){ alert("Invalid email!"); return; }
+      alert("Password reset link sent (Dummy)");
+      forgotModal.classList.add('hidden');
+    });
+  
+    // --------------------- PASSWORD TOGGLE ---------------------
+    toggleLoginPass.addEventListener('click', ()=>{loginPassword.type = loginPassword.type==='password'?'text':'password';});
+    toggleSignupPass.addEventListener('click', ()=>{signupPassword.type = signupPassword.type==='password'?'text':'password';});
+  
+    // --------------------- NO AUTO-REDIRECT ---------------------
+    // Page always shows welcome card initially
+    window.addEventListener('DOMContentLoaded', ()=>{
+      showWelcome();
+    });
+  </script>
+  
+</body>
+</html>
